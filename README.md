@@ -1,8 +1,7 @@
 # TWilBert: Pre-trained Deep Bidirectional Transformers for Spanish Twitter
 ***
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
-<div align="center">![](https://i.imgur.com/tYZq8Tj.png)</div>
+![](https://i.imgur.com/tYZq8Tj.png)
 
 
 **TWilBert** es una adaptación del modelo [**BERT**](https://arxiv.org/abs/1802.05365) con modificaciones publicadas en diversos papers ([**ALBERT**](https://arxiv.org/abs/1909.11942), [**Product Key Memories**](https://arxiv.org/abs/1907.05242) o [**RoBERTa**](https://arxiv.org/abs/1907.11692)), para el aprendizaje de embeddings contextualizados. El objetivo es impulsar el estado del arte en tareas de Procesamiento del Lenguaje Natural en **español** dedicadas a la red social **Twitter**. Por ello, proporcionamos modelos pre-entrenados especializados en el idioma español y el dominio de Twitter. Así, se pretende establecer un nuevo y competitivo baseline, que permita que los investigadores focalicen su atención en el desarrollo de nuevas y mejores arquitecturas para tareas NLP en Twitter español.
