@@ -1,0 +1,103 @@
+{
+    "dataset": {
+
+        "train_file": "./finetuning_tasks/semeval18_affect/train.csv",
+        "dev_file": "./finetuning_tasks/semeval18_affect/dev.csv",
+        "test_file": "./finetuning_tasks/semeval18_affect/test.csv",
+        "vocab_file": "full_vocab",
+        "id_header": "ID",
+        "text_header": "TEXT",
+        "class_header": "CLASS",
+        "delimiter": "\t"
+    },
+
+    "task":{
+
+        "regression": false,
+        "categories": {
+           "0": 0,
+           "1": 1
+        },
+        "class_weights": "auto",
+        "eval_metric": "accuracy",
+        "average_metric": "macro",
+        "class_metric": null,
+        "stance_f1": false,
+        "multi_label": true
+    },
+
+    "representation": {
+
+        "max_len": 128,
+        "bucket_min": 5,
+        "bucket_max": 45,
+        "bucket_steps": 5,
+        "preprocessing": true
+    },
+
+    "model": {
+
+        "factorize_embeddings": false,
+        "cross_sharing": false,
+        "embedding_size": 768,
+        "hidden_size": 768,
+        "n_encoders": 12,
+        "n_heads": 12,
+        "attention_size": 64,
+        "input_dropout": 0.0,
+        "output_dropout": 0.1,
+        "initializer_range": 0.02,
+        "pkm": false,
+        "pkm_params": {
+            "factorize_embeddings": false,
+            "k_dim": 512,
+            "memory_size": 256,
+            "n_heads": 4,
+            "knn": 32,
+            "in_layers": [10],
+            "input_dropout": 0.0,
+            "output_dropout": 0.15,
+            "batch_norm": true
+        },
+
+         "rop": {
+
+             "n_hidden": 0,
+             "hidden_size": 512
+          }
+    },
+
+    "finetune_model":{
+
+        "dropout": 0.0
+    },
+
+    "grid_search":{
+        "batch_size": [16, 32],
+        "collapse_mode": ["avg"],
+        "lr": [1e-5, 5e-5, 1e-4],
+        "runs": 3,
+        "monitorize": "accuracy"
+    },
+
+    "finetuning": {
+
+        "pred_batch_size": 32,
+        "epochs": 15,
+        "trainable_layers": "all",
+        "use_special_tokens": true,
+        "loss": "binary_crossentropy",
+        "optimizer": "adam_accumulated",
+        "noam_annealing": false,
+        "warmup_steps": 1,
+        "accum_iters": 1,
+        "use_gpu": true,
+        "multi_gpu": true,
+        "n_gpus": 2,
+        "path_save_weights": "./finetuning_weights/coset/",
+        "path_load_weights": "./weights/weights_large/model_03-2.0874-0.6201.hdf5",
+        "model_name": "coset_tf",
+        "verbose": 1
+    }
+}
+
