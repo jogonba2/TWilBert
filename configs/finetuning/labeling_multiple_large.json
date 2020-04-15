@@ -1,0 +1,75 @@
+{
+    "dataset": {
+
+        "test_file": "./finetuning_tasks/multistance18/dev.csv",
+        "output_file": "./res_multistance18.tsv",
+        "vocab_file": "vocab",
+        "id_header": "ID",
+        "text_header": "TEXT",
+        "aux_header": "NEXT",
+        "delimiter": "\t"
+    },
+
+    "task":{
+
+        "rev_categories": {
+           "0" : "AGAINST",
+           "1": "NEUTRAL",
+           "2": "FAVOR"
+        }
+    },
+
+    "representation": {
+
+        "max_len": 128,
+        "bucket_min_a": 5,
+        "bucket_min_b": 5,
+        "bucket_max_a": 45,
+        "bucket_max_b": 45,
+        "bucket_steps": 5,
+        "preprocessing": true
+    },
+
+    "model": {
+
+        "factorize_embeddings": false,
+        "cross_sharing": false,
+        "embedding_size": 768,
+        "hidden_size": 768,
+        "n_encoders": 12,
+        "n_heads": 12,
+        "attention_size": 64,
+        "input_dropout": 0.0,
+        "output_dropout": 0.1,
+        "initializer_range": 0.02,
+        "pkm": false,
+        "rop": {
+
+             "n_hidden": 0,
+             "hidden_size": 512
+          }
+    },
+
+    "finetuning": {
+
+        "dropout": 0.0,
+        "trainable_layers": "all",
+        "collapse_mode": "avg",
+        "use_special_tokens": true,
+
+        "batch_size": 32,
+        "pred_batch_size": 32,
+        "epochs": 15,
+
+        "loss": "categorical_crossentropy",
+        "optimizer": "adam_accumulated",
+        "lr": 0.0001,
+        "noam_annealing": false,
+        "warmup_steps": 1,
+        "accum_iters": 1,
+
+        "path_load_finetuned_weights": "./finetuning_weights/multistance18/multi_large.h5",
+        "verbose": 1
+    }
+}
+

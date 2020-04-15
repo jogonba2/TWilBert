@@ -1,0 +1,62 @@
+{
+    "dataset": {
+
+        "file": "./pretraining_corpora/prepro_pairs.tsv",
+        "vocab_file": "vocab"
+    },
+
+    "representation": {
+
+        "max_len": 128,
+        "bucket_min_a": 5,
+        "bucket_min_b": 5,
+        "bucket_max_a": 45,
+        "bucket_max_b": 45,
+        "bucket_steps": 5
+    },
+
+    "model": {
+
+        "factorize_embeddings": false,
+        "cross_sharing": false,
+        "embedding_size": 768,
+        "hidden_size": 768,
+        "n_encoders": 12,
+        "n_heads": 12,
+        "attention_size": 64,
+        "input_dropout": 0.0,
+        "output_dropout": 0.0,
+        "initializer_range": 0.02,
+        "pkm": false,
+        "masked_lm": {
+
+            "type": "span",
+            "max_span": 3,
+            "budget": 0.15,
+            "probs": {
+                "mask": 0.8,
+                "random": 0.1,
+                "keep": 0.1
+             }
+         },
+
+         "rop": {
+
+             "n_hidden": 0,
+             "hidden_size": 512
+          }
+    },
+
+    "training": {
+
+        "batch_size": 64,
+        "epochs": 30,
+        "optimizer": "adam",
+        "noam_annealing": true,
+        "warmup_steps": 10000,
+        "accum_iters": 32,
+        "path_save_weights": "./pretrained_weights/",
+        "verbose": 1
+    }
+}
+

@@ -1,0 +1,85 @@
+{
+    "dataset": {
+
+        "train_file": "./finetuning_tasks/multistance18/train.csv",
+        "dev_file": "./finetuning_tasks/multistance18/dev.csv",
+        "vocab_file": "vocab",
+        "id_header": "ID",
+        "text_header": "TEXT",
+        "aux_header": "NEXT",
+        "class_header": "CLASS",
+        "delimiter": "\t"
+    },
+
+    "task":{
+
+        "regression": false,
+        "categories": {
+           "AGAINST" : 0,
+           "NEUTRAL": 1,
+           "FAVOR": 2
+        },
+        "class_weights": "auto",
+        "eval_metric": "f1",
+        "average_metric": "macro",
+        "class_metric": null,
+        "stance_f1": false,
+        "multi_label": false
+    },
+
+    "representation": {
+
+        "max_len": 128,
+        "bucket_min_a": 5,
+        "bucket_min_b": 5,
+        "bucket_max_a": 45,
+        "bucket_max_b": 45,
+        "bucket_steps": 5,
+        "preprocessing": true
+    },
+
+    "model": {
+
+        "factorize_embeddings": false,
+        "cross_sharing": false,
+        "embedding_size": 768,
+        "hidden_size": 768,
+        "n_encoders": 12,
+        "n_heads": 12,
+        "attention_size": 64,
+        "input_dropout": 0.0,
+        "output_dropout": 0.1,
+        "initializer_range": 0.02,
+        "pkm": false,
+        "rop": {
+
+             "n_hidden": 0,
+             "hidden_size": 512
+          }
+    },
+
+    "finetuning": {
+
+        "dropout": 0.0,
+        "trainable_layers": "all",
+        "collapse_mode": "avg",
+        "use_special_tokens": true,
+
+        "batch_size": 32,
+        "pred_batch_size": 32,
+        "epochs": 15,
+
+        "loss": "categorical_crossentropy",
+        "optimizer": "adam_accumulated",
+        "lr": 0.0001,
+        "noam_annealing": false,
+        "warmup_steps": 1,
+        "accum_iters": 1,
+
+        "path_save_weights": "./finetuning_weights/multistance18/",
+        "path_load_weights": "./pretrained_weights/twilbert_large.hdf5",
+        "model_name": "multi_large",
+        "verbose": 1
+    }
+}
+
