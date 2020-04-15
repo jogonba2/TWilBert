@@ -4,18 +4,17 @@
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 ![](https://i.imgur.com/tYZq8Tj.png)
 
-
 **TWilBert** es una adaptación del modelo [**BERT**](https://arxiv.org/abs/1802.05365) con modificaciones publicadas en diversos papers ([**ALBERT**](https://arxiv.org/abs/1909.11942), [**Product Key Memories**](https://arxiv.org/abs/1907.05242) o [**RoBERTa**](https://arxiv.org/abs/1907.11692)), para el aprendizaje de embeddings contextualizados. El objetivo es impulsar el estado del arte en tareas de Procesamiento del Lenguaje Natural en **español** dedicadas a la red social **Twitter**. Por ello, proporcionamos modelos pre-entrenados especializados en el idioma español y el dominio de Twitter. Así, se pretende establecer un nuevo y competitivo baseline, que permita que los investigadores focalicen su atención en el desarrollo de nuevas y mejores arquitecturas para tareas NLP en Twitter español.
 
 **TWilBert** se proporciona como un framework que permite el pre-entrenamiento, la evaluación y el finetuning de modelos BERT-like, con el que se han obtenido resultados estado del arte para gran cantidad de tareas propuestas en diversos congresos internacionales sobre clasificación de textos españoles en Twitter. Si usas este código y los modelos pre-entrenados, por favor, cita la siguiente referencia:
-~~
+~~~
 @article{TWilBert,
   title={TWilBert: Pre-trained Deep Bidirectional Transformers for Spanish Twitter},
   author={Gonz{\'a}lez, Jos{\'e}-{\'A}ngel and Hurtado, Llu’{\i}s-F and Pla, Ferran},
   journal={To be decided},
   year={Forthcoming}
 }
-~~
+~~~
 
 # Características
 ***
@@ -218,7 +217,7 @@ El primer paso necesario es crear el vocabulario como se ha especificado en la s
         "multi_gpu": true,
         "n_gpus": 2,
         "path_save_weights": "./weights/weights_xlarge/",
-        "path_initial_weights" null,
+        "path_initial_weights": null,
         "verbose": 1
     }
 }
@@ -539,39 +538,17 @@ Tras ejecutar el script, se lleva a cabo el finetuning de un modelo **TWilBert**
 ***
 Junto con la implementación del framework, se proporcionan varios modelos pre-entrenados.
 
-***Advertencia***: actualmente solo está disponible el modelo **XLarge**. En el futuro publicaremos el resto de modelos, aunque valores de las tablas están sujetos a cambios. Todos los modelos han sido pre-entrenados con **140** millones de pares de tweets (**70m** positivos y **70m** negativos) durante 3 épocas.
+***Advertencia***: actualmente solo está disponible el modelo **XLarge-NoShared**. En el futuro publicaremos el resto de modelos, aunque valores de las tablas están sujetos a cambios. Todos los modelos han sido pre-entrenados con **94** millones de pares de tweets (**47M** positivos y **47M** negativos) durante 3.5M batches de 2048 muestras.
 
-|         | Link |  L |  A | E   | H   | Cross | KNN | M   | Dk  | J | Params |
-|---------|-----:|---:|---:|-----|-----|-------|-----|-----|-----|---|--------|
-| Base    |    ? |  6 |  6 | 128 | 768 | Yes   | 32  | 256 | 512 | 4 | 89m    |
-| Large   |    ? | 10 | 10 | 128 | 768 | Yes   | 32  | 256 | 512 | 4 | 89m    |
-| XLarge  |    ? | 12 | 12 | 128 | 768 | Yes   | 32  | 256 | 512 | 4 | 89m    |
-| XXLarge |    ? | 16 | 16 | 128 | 768 | Yes   | 32  | 256 | 512 | 4 | 89m    |
+|         |  L |  A | E   | H    | Params |
+|---------|-----:|---:|---:|-----|-----|
+| [TWilBERT-Base](https://drive.google.com/open?id=1ztTQBvPhuy7SFi1uHrLCCOZCirubAt-1)    |    6 |  6 |  768 | 768 | 82M    |
+| [TWilBERT-Large](https://drive.google.com/open?id=14BW8JoyrWkOOAHw6tLCOlh0tgrd8wIUh)   |    12 | 12 | 768 | 768 | 131M    |
 
-
-# Resultados
+# Contribuir
 ***
+Cualquier sugerencia o contribución es bienvenida a través de los **issues** de **GitHub**. Para contactar con el autor del framework, [escríbele un correo](mailto:jogonba2@dsic.upv.es).
 
-Se ha evaluado el modelo **XLarge** sobre gran cantidad de tareas en Twitter para español de congresos internacionales como la **SEPLN** y **SemEval**. Las tareas de clasificación de textos con las que se ha evaluado son: Topic Detection ([COSET 2017](http://mediaflows.es/coset/)), Irony Detection ([IroSVA 2019](https://www.autoritas.net/IroSvA2019/)), Gender Detection ([Stance&Gender 2017](http://stel.ub.edu/Stance-IberEval2017/)), Humor Detection ([HAHA 2019](https://www.fing.edu.uy/inco/grupos/pln/haha/)), Sentiment Analysis ([TASS 2019](https://sites.google.com/view/iberlef-2019)), Emotional Categorization ([TASS 2018 Task 4](http://www.sepln.org/workshops/tass/2018/task-4/)), Hate Speech Detection ([HATEval 2019]((https://competitions.codalab.org/competitions/19935)) & [Mex-A3T 2019](https://sites.google.com/view/mex-a3t/)), Stance Detection ([Stance 2017](http://stel.ub.edu/Stance-IberEval2017/) & [MultiStance 2018](https://www.autoritas.net/MultiStanceCat-IberEval2018/)) y Affect Detection ([SemEval 2018 Task 1](https://competitions.codalab.org/competitions/17751))
-
-
-|               | MP | MR | MF1 | F1 | Acc | MP | MR | MF1 | F1 | Acc |
-|---------------|---:|---:|----:|----|-----|----|----|-----|----|-----|
-| Coset17       |  |    |  58.30   |    |     | -   |  -  |  64.82  |  -  | -    |
-| IroSVA19-ES      |    |    |  61.25   |    |     |  -  | -   | 71.67    | -   | -     |
-| IroSVA19-MX      |    |    |     |    |     |  -  |  -  | 68.03    |  -  |  -   |
-| IroSVA19-CU      |    |    |     |    |     |  -  | -   | 65.96    |   -  |  -   |
-| Gender17      |    |    |     |    |  73.08   |-    |  -  |     -|  -  |  68.55    |
-| HAHA19        |    |    |     |    |     |  -  | -   |    - |  82.10  |   85.50  |
-| TASS19-ES        |    |    |     |    |     |  50.50  | 50.80   |  50.70   |  -  | -    |
-| TASS19-MX        |    |    |     |    |     |  49.00  |  51.20  |  50.10   |  -  |  -   |
-| TASS19-PE        |    |    |     |    |     |   46.20 | 44.60   |  45.40   |  -  |  -   |
-| TASS19-CR        |    |    |     |    |     |  58.80  | 45.40   | 51.20    | -   |  -   |
-| TASS19-UY        |    |    |     |    |     |  49.70   | 53.60   |  51.50   |  -  | -    |
-| TASS18-4      |    |    |     |    |     |  87.80 |  88.90  |   88.30  |  -  |  89.30   |
-| HATEval19     |    |    |     |    |     |    |    |     |    |     |
-| MEX-A3T19     |    |    |     |    |     |    |    |     |    |     |
-| Stance17      |    |    |     |    |     | -   | -   |  48.88   |  -  |  -   |
-| MultiStance18 |    |    |     |    |     |  -  |  -  |  28.02   |  -  |  -   |
-| SemEval18-1   |    |    |     |    |     |    |    |     |    |     |
-
+# Licencia
+***
+Tanto el código como los modelos pre-entrenados se publican bajo la misma licencia (**Apache 2.0**). Para los scripts utilizados y modificados de otros repositorios, se indica expresamente la licencia bajo la que han sido liberados.
