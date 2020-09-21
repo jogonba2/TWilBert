@@ -11,8 +11,8 @@
 @article{TWilBert,
   title={TWilBert: Pre-trained Deep Bidirectional Transformers for Spanish Twitter},
   author={Gonz{\'a}lez, Jos{\'e}-{\'A}ngel and Hurtado, Llu’{\i}s-F and Pla, Ferran},
-  journal={To be decided},
-  year={Forthcoming}
+  journal={Neurocomputing},
+  year={2020}
 }
 ~~~
 
