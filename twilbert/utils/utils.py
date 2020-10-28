@@ -4,10 +4,7 @@ import math
 import csv
 import numpy as np
 import pandas as pd
-import numpy as np
-import tensorflow as tf
-import random as rn
-from keras import backend as K
+
 
 class Utils:
 
@@ -25,7 +22,7 @@ class Utils:
         classes = f[class_header].tolist()
         del f
         if categories:
-            classes = [categories[str(k).strip()] for k in classes]
+            classes = [categories[str(k)] for k in classes]
         return ids, texts, aux, classes
 
     @staticmethod
@@ -43,35 +40,32 @@ class Utils:
             classes = [c.split("|") for c in classes]
         if categories:
             if multi_label:
-                classes = [[categories[str(k).strip()] for k in c] for c in classes]
+                classes = [[categories[str(k)] for k in c] for c in classes]
             else:
-                classes = [categories[str(k).strip()] for k in classes]
+                classes = [categories[str(k)] for k in classes]
         return ids, texts, classes
 
     @staticmethod
-    def load_test_multiple_dataset(path, id_header="ID",
-                                   text_header="TEXT",
-                                   aux_header="AUX",
-                                   delimiter="\t"):
+    def load_test_dataset(path, id_header="ID", text_header="TEXT",
+                          class_header="CLASS", multi_label=False,
+                          delimiter="\t"):
 
         f = pd.read_csv(path, delimiter=delimiter,
                         encoding="utf8", quoting=csv.QUOTE_NONE)
         ids = f[id_header].tolist()
         texts = f[text_header].tolist()
-        aux = f[aux_header].tolist()
+        classes = f[class_header].tolist()
         del f
-        return ids, texts, aux
+        if multi_label:
+            classes = [c.split("|") for c in classes]
+        return ids, texts, classes
 
     @staticmethod
-    def load_test_single_dataset(path, id_header="ID", text_header="TEXT",
-                                 delimiter="\t"):
-
-        f = pd.read_csv(path, delimiter=delimiter,
-                        encoding="utf8", quoting=csv.QUOTE_NONE)
-        ids = f[id_header].tolist()
-        texts = f[text_header].tolist()
-        del f
-        return ids, texts
+    def load_lm_dataset(path):
+        fr = open(path, encoding="utf8")
+        dataset = [line.strip() for line in fr.readlines()]
+        fr.close()
+        return dataset
 
     """Truncating at end, Padding at start"""
     @staticmethod
@@ -298,12 +292,6 @@ class Utils:
                     best_it = it
                     best_result = result[mon_metric]
         return best_params, best_it
-
-    @staticmethod
-    def set_random_seed():
-        np.random.seed(13)
-        rn.seed(13)
-        tf.set_random_seed(13)
 
     @staticmethod
     def preprocessing():

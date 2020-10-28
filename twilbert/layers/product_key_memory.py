@@ -9,6 +9,11 @@ import math
 
 class PKM(Layer):
 
+    """
+    Adapted from
+    https://github.com/facebookresearch/XLM/blob/master/PKM-layer.ipynb
+    """
+
     def __init__(self, k_dim, memory_size,
                  output_dim, n_heads, knn,
                  input_dropout, output_dropout,
@@ -84,6 +89,7 @@ class PKM(Layer):
     def compute_mask(self, inputs, mask=None):
         return mask
 
+    # https://stackoverflow.com/questions/51143210/batched-gather-gathernd #
     @staticmethod
     def __batched_gather(values, indices):
         row_indices = tf.range(0, tf.shape(values)[0])[:, tf.newaxis]

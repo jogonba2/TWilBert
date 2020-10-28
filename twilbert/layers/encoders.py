@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 from keras.layers import Layer, TimeDistributed, Dense
 from keras import backend as K
-from twilbert.layers.activations import Gelu
+from twilbert.utils.activations import Gelu
 from twilbert.layers.multihead_attention import MultiHeadAttention
 from twilbert.layers.product_key_memory import PKM
 from twilbert.layers.layer_norm import LayerNormalization

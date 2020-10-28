@@ -1,0 +1,97 @@
+{
+    "dataset": {
+        "train_file": "/home/jogonba2/TWilBERT/corpora/downstream_tasks/tass20/subtask1/train/es.tsv",
+        "dev_file": "/home/jogonba2/TWilBERT/corpora/downstream_tasks/tass20/subtask1/dev/es.tsv",
+        "test_file": "/home/jogonba2/TWilBERT/corpora/downstream_tasks/tass20/subtask1/dev/es.tsv",
+        "vocab_file": "/home/jogonba2/TWilBERT/weights/bert_base_twitter/vocab",
+        "id_header": "ID",
+        "text_header": "TEXT",
+        "class_header": "CLASS",
+        "delimiter": "\t"
+    },
+
+    "task":{
+
+        "regression": false,
+        "categories": {
+           "N": 0,
+           "NEU": 1,
+           "P": 2
+        },
+        "class_weights": "auto",
+        "eval_metric": "f1",
+        "average_metric": "macro",
+        "class_metric": null,
+        "stance_f1": false,
+        "multi_label": false
+    },
+
+    "representation": {
+
+        "max_len": 128,
+        "bucket_min": 5,
+        "bucket_max": 90,
+        "bucket_steps": 5,
+        "preprocessing": true
+    },
+
+    "model": {
+
+        "factorize_embeddings": false,
+        "cross_sharing": false,
+        "embedding_size": 768,
+        "hidden_size": 768,
+        "n_encoders": 6,
+        "n_heads": 6,
+        "attention_size": 64,
+        "input_dropout": 0.0,
+        "output_dropout": 0.15,
+        "initializer_range": 0.02,
+        "pkm": false,
+        "pkm_params": {
+            "factorize_embeddings": false,
+            "k_dim": 512,
+            "memory_size": 256,
+            "n_heads": 4,
+            "knn": 32,
+            "in_layers": [10],
+            "input_dropout": 0.0,
+            "output_dropout": 0.15,
+            "batch_norm": true
+        },
+
+         "rop": {
+             "n_hidden": 0,
+             "hidden_size": 512
+          }
+    },
+
+    "finetune_model":{
+
+        "dropout": 0.0
+    },
+
+    "finetuning": {
+
+        "batch_size": 32,
+        "pred_batch_size": 32,
+        "epochs": 15,
+        "trainable_layers": "all",
+        "collapse_mode": "avg",
+        "use_special_tokens": true,
+        "loss": "categorical_crossentropy",
+        "optimizer": "adam_accumulated",
+        "lr": 0.0001,
+        "noam_annealing": false,
+        "warmup_steps": 1,
+        "accum_iters": 1,
+        "use_gpu": true,
+        "multi_gpu": true,
+        "n_gpus": 2,
+        "path_save_weights": "/home/jogonba2/TWilBERT/weights/",
+        "path_load_weights": "/home/jogonba2/TWilBERT/weights/bert_base_twitter/weights.hdf5",
+        "model_name": "finetuned_tass",
+        "verbose": 1
+    }
+}
+

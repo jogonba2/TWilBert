@@ -78,6 +78,12 @@ class LAMB(Optimizer):
         return dict(list(base_config.items()) + list(config.items()))
 
 
+"""
+Thanks to:
+https://github.com/keras-team/keras/issues/3556 (alexeydevederkin)
+"""
+
+
 class ADAM(Optimizer):
 
     def __init__(self, lr=0.0001, beta_1=0.9, beta_2=0.98,
@@ -158,6 +164,7 @@ class ADAM(Optimizer):
                                          sum_grad))
             new_p = p_t
 
+            # Apply constraints.
             if getattr(p, 'constraint', None) is not None:
                 new_p = p.constraint(new_p)
 

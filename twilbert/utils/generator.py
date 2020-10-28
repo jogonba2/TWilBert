@@ -56,20 +56,18 @@ class MultipleFinetuningGenerator:
                 batch_x = np.zeros((bucket_size, bucket_1 + bucket_2 + 3),
                                    dtype="int32")
                 batch_y = np.zeros((bucket_size,), dtype="int32")
-                batch_ids = []
+
                 for i in range(bucket_size):
                     ids_i, x1_i, x2_i, y_i = bucked_samples[bucket][i]
                     x = ut.prepare_input(x1_i, x2_i)
                     x_ids = convert_tokens_to_ids(self.tokenizer.vocab, x)
                     batch_x[i] = x_ids
                     batch_y[i] = y_i
-                    batch_ids.append(ids_i)
                 p = np.random.permutation(bucket_size)
                 batch_x = batch_x[p]
                 batch_y = batch_y[p]
-                batch_ids = np.array(batch_ids)[p].tolist()
                 batch_y = to_categorical(batch_y, num_classes=self.n_classes)
-                yield (batch_ids, [batch_x, position_indices, segment_indices], batch_y)
+                yield ([batch_x, position_indices, segment_indices], batch_y)
 
 
 class SingleFinetuningGenerator:
@@ -112,7 +110,6 @@ class SingleFinetuningGenerator:
                                            dtype="int32")
 
                 batch_x = np.zeros((bucket_size, bucket + 2), dtype="int32")
-                batch_ids = []
                 if self.multi_label:
                     batch_y = np.zeros((bucket_size, self.n_classes), dtype="int32")
                 else:
@@ -123,22 +120,21 @@ class SingleFinetuningGenerator:
                     x_ids = convert_tokens_to_ids(self.tokenizer.vocab, x_i)
                     batch_x[i] = x_ids
                     batch_y[i] = y_i
-                    batch_ids.append(ids_i)
                 p = np.random.permutation(bucket_size)
                 batch_x = batch_x[p]
                 batch_y = batch_y[p]
-                batch_ids = np.array(batch_ids)[p].tolist()
                 if not self.multi_label:
                     batch_y = to_categorical(batch_y, num_classes=self.n_classes)
-                yield (batch_ids, [batch_x, position_indices, segment_indices], batch_y)
+                yield ([batch_x, position_indices, segment_indices], batch_y)
 
-class PretrainingGenerator:
+
+class DataGenerator:
 
     def __init__(self, dataset_file, tokenizer,
                  batch_size, mlm_type, mlm_max_span,
                  mask_prob, probs_mlm, min_bucket_a,
                  min_bucket_b, max_bucket_a, max_bucket_b,
-                 bucket_steps):
+                 bucket_steps, use_rop):
 
         self.dataset_file = dataset_file
         self.batch_size = batch_size if batch_size % 2 == 0 else batch_size + 1
@@ -158,6 +154,8 @@ class PretrainingGenerator:
         self.tokenizer = tokenizer
         self.vocab_words = list(self.tokenizer.vocab.keys())[5:]
         self.vocab_size = len(self.vocab_words)
+        self.use_rop = use_rop
+
 
     def generator(self):
         while True:
@@ -240,5 +238,10 @@ class PretrainingGenerator:
             batch_rop = batch_rop[p]
             batch_mlm = batch_mlm[p]
             batch_mlm = np.expand_dims(batch_mlm, -1)
-            return ([batch_x, position_indices, segment_indices],
-                    [batch_rop, batch_mlm])
+            if self.use_rop:
+                return ([batch_x, position_indices, segment_indices],
+                        [batch_rop, batch_mlm])
+            else:
+                return ([batch_x, position_indices, segment_indices],
+                        [batch_mlm])
+

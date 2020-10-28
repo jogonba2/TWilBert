@@ -2,7 +2,7 @@ from sklearn.metrics import (accuracy_score, precision_score,
                              recall_score, f1_score,
                              classification_report)
 from scipy.stats import pearsonr
-from twilbert.utils.finetuning_metrics import *
+from .finetuning_metrics import *
 import numpy as np
 
 
@@ -10,7 +10,7 @@ class FinetuningMonitor:
 
     def __init__(self, monitor_metric="f1", average="macro",
                  class_metric=None, stance=False,
-                 multi_label=False, verbose=True):
+                 multi_label=False):
         self.step = 0
         self.best_step = -1
         self.best_value = -1
@@ -19,7 +19,6 @@ class FinetuningMonitor:
         self.class_metric = class_metric
         self.stance = stance
         self.multi_label = multi_label
-        self.verbose = verbose
 
     def __step__(self, truths, preds):
         best = False
@@ -49,8 +48,7 @@ class FinetuningMonitor:
         if val > self.best_value:
             self.best_value = val
             self.best_step = self.step
-            if self.verbose:
-                self.report_classification(res, "dev")
+            self.report_classification(res, "dev")
             best = True
 
         self.step += 1
@@ -81,8 +79,7 @@ class FinetuningMonitor:
         if self.stance:
             res["macro-f1"] = mf1_stance(truths, preds)
 
-        if self.verbose:
-            self.report_classification(res, "test")
+        self.report_classification(res, "test")
 
         return res
 
