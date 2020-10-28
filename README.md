@@ -8,13 +8,31 @@
 
 **TWilBert** se proporciona como un framework que permite el pre-entrenamiento, la evaluación y el finetuning de modelos BERT-like, con el que se han obtenido resultados estado del arte para gran cantidad de tareas propuestas en diversos congresos internacionales sobre clasificación de textos españoles en Twitter. Si usas este código y los modelos pre-entrenados, por favor, cita la siguiente referencia:
 ~~~
-@article{TWilBert,
-  title={TWilBert: Pre-trained Deep Bidirectional Transformers for Spanish Twitter},
-  author={Gonz{\'a}lez, Jos{\'e}-{\'A}ngel and Hurtado, Llu’{\i}s-F and Pla, Ferran},
-  journal={Neurocomputing},
-  year={2020}
+@article{GONZALEZ2020,
+title = "TWilBert: Pre-trained Deep Bidirectional Transformers for Spanish Twitter",
+journal = "Neurocomputing",
+year = "2020",
+issn = "0925-2312",
+doi = "https://doi.org/10.1016/j.neucom.2020.09.078",
+url = "http://www.sciencedirect.com/science/article/pii/S0925231220316180",
+author = "José Ángel González and Lluís-F. Hurtado and Ferran Pla",
+keywords = "Contextualized Embeddings, Spanish, Twitter, TWilBERT",
+abstract = "In recent years, the Natural Language Processing community have been moving from uncontextualized word embeddings towards contextualized word embeddings. Among these contextualized architectures, BERT stands out due to its capacity to compute bidirectional contextualized word representations. However, its competitive performance in English downstream tasks is not obtained by its multilingual version when it is applied to other languages and domains. This is especially true in the case of the Spanish language used in Twitter. In this work, we propose TWiLBERT, a specialization of BERT architecture both for the Spanish language and the Twitter domain. Furthermore, we propose a Reply Order Prediction signal to learn inter-sentence coherence in Twitter conversations, which improves the performance of TWilBERT in text classification tasks that require reasoning on sequences of tweets. We perform an extensive evaluation of TWilBERT models on 14 different text classification tasks, such as irony detection, sentiment analysis, or emotion detection. The results obtained by TWilBERT outperform the state-of-the-art systems and Multilingual BERT. In addition, we carry out a thorough analysis of the TWilBERT models to study the reasons of their competitive behavior. We release the pre-trained TWilBERT models used in this paper, along with a framework for training, evaluating, and fine-tuning TWilBERT models."
 }
 ~~~
+
+**Actualización 28/10/2020**: Se ha reestructurado el código del framework, se han añadido nuevas utilidades para evaluar el masked language model y reply order prediction. Se han entrenado dos nuevos modelos, además de TWilBERT-Base y TWilBERT-Large: TWilBERT-Large-MLM, solo entrenado con masked language model y sin reply order prediction y BERT-Wiki, entrenado con la wikipedia en español. Liberaré estos modelos conforme tenga algo de tiempo libre, en cualquier caso, obtienen un peor rendimiento que los ya liberados. Referencia a NeuroComputing actualizada. También se ha comprobado la compatibilidad en otros entornos con Python +3.6 y Tensorflow hasta 1.10.1 y añadido varios corpus de ejemplo para facilitar a los nuevos usuarios la realización de pruebas previas. **Tras la actualización, algunos parámetros de los ficheros de configuración mostrados en este README no se usan o han cambiado su formato, revisa la carpeta /config/ para ejemplos concretos de diversas aplicaciones.
+
+# Modelos Pre-entrenados
+***
+Junto con la implementación del framework, se proporcionan varios modelos pre-entrenados.
+
+Todos los modelos de Twitter han sido pre-entrenados con **94** millones de pares de tweets (**47M** positivos y **47M** negativos) durante 3.5M batches de 2048 muestras.
+
+|         |  L |  A | E   | H    | Params |
+|---------|-----:|---:|---:|-----|-----|
+| [TWilBERT-Base](https://drive.google.com/open?id=1ztTQBvPhuy7SFi1uHrLCCOZCirubAt-1)    |    6 |  6 |  768 | 768 | 82M    |
+| [TWilBERT-Large](https://drive.google.com/open?id=14BW8JoyrWkOOAHw6tLCOlh0tgrd8wIUh)   |    12 | 12 | 768 | 768 | 131M    |
 
 # Características
 ***
@@ -533,17 +551,6 @@ python3 twilbert/applications/single_finetune_twilbert.py configs/finetuning/con
 
 Tras ejecutar el script, se lleva a cabo el finetuning de un modelo **TWilBert** pre-entrenado, junto con un proceso de monitorización automática de los resultados siguiendo los parámetros de evaluación definidos en el campo **task**.
 
-
-# Modelos Pre-entrenados
-***
-Junto con la implementación del framework, se proporcionan varios modelos pre-entrenados.
-
-***Advertencia***: actualmente solo está disponible el modelo **XLarge-NoShared**. En el futuro publicaremos el resto de modelos, aunque valores de las tablas están sujetos a cambios. Todos los modelos han sido pre-entrenados con **94** millones de pares de tweets (**47M** positivos y **47M** negativos) durante 3.5M batches de 2048 muestras.
-
-|         |  L |  A | E   | H    | Params |
-|---------|-----:|---:|---:|-----|-----|
-| [TWilBERT-Base](https://drive.google.com/open?id=1ztTQBvPhuy7SFi1uHrLCCOZCirubAt-1)    |    6 |  6 |  768 | 768 | 82M    |
-| [TWilBERT-Large](https://drive.google.com/open?id=14BW8JoyrWkOOAHw6tLCOlh0tgrd8wIUh)   |    12 | 12 | 768 | 768 | 131M    |
 
 # Contribuir
 ***
