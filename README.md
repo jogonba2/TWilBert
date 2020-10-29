@@ -36,7 +36,7 @@ Todos los modelos de Twitter han sido pre-entrenados con **94** millones de pare
 
 # Características
 ***
-**TWilBert** es un entorno que permite abordar cualquier tipo de tarea de NLP aplicada a redes sociales, basándose en modelos de embeddings contextualizados BERT-like, incluyendo gran parte de las herramientas publicadas en papers como [**BERT**](https://arxiv.org/abs/1802.05365) con modificaciones publicadas en diversos papers ([**ALBERT**](https://arxiv.org/abs/1909.11942), [**Product Key Memories**](https://arxiv.org/abs/1907.05242) o [**RoBERTa**](https://arxiv.org/abs/1907.11692). Se proporcionan implementaciones de:
+**TWilBert** es un entorno que permite abordar cualquier tipo de tarea de text classification aplicada a redes sociales, basándose en modelos de embeddings contextualizados BERT-like, incluyendo gran parte de las herramientas publicadas en papers como [**BERT**](https://arxiv.org/abs/1802.05365) con modificaciones publicadas en diversos papers ([**ALBERT**](https://arxiv.org/abs/1909.11942), [**Product Key Memories**](https://arxiv.org/abs/1907.05242) o [**RoBERTa**](https://arxiv.org/abs/1907.11692). Se proporcionan implementaciones de:
 
 * **Transformer Encoders**: Self-Attention, Multi-Head Self-Attention, Product Key Memories y técnicas como Cross-Layer Parameter Sharing o Factorized Embedding Parameterization.
 * **Optimizadores**: Gradient Accumulation, Adam, LAMB y Learning Rate Schedules (NOAM)
