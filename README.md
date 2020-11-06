@@ -27,7 +27,7 @@ abstract = "In recent years, the Natural Language Processing community have been
 ***
 Junto con la implementación del framework, se proporcionan varios modelos pre-entrenados.
 
-Todos los modelos de Twitter han sido pre-entrenados con **94** millones de pares de tweets (**47M** positivos y **47M** negativos) durante 3.5M batches de 2048 muestras.
+Todos los modelos de Twitter han sido pre-entrenados con **94** millones de pares de tweets (**47M** positivos y **47M** negativos, siguiendo el criterio Reply Order Prediction propuesto en el paper) durante 3.5M batches de 64 muestras (con gradient accumulation, 110k batches de 2048 muestras) .
 
 |         |  L |  A | E   | H    | Params |
 |---------|-----:|---:|---:|-----|-----|
